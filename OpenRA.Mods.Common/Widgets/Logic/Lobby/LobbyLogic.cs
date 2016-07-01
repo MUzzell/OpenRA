@@ -315,7 +315,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var startGameButton = lobby.GetOrNull<ButtonWidget>("START_GAME_BUTTON");
 			if (startGameButton != null)
 			{
-				startGameButton.IsDisabled = () => configurationDisabled() || Map.Status != MapStatus.Available ||
+				startGameButton.IsDisabled = () => (configurationDisabled() && (orderManager.LocalClient != null && !orderManager.LocalClient.IsAdmin)) ||
+					Map.Status != MapStatus.Available ||
 					orderManager.LobbyInfo.Slots.Any(sl => sl.Value.Required && orderManager.LobbyInfo.ClientInSlot(sl.Key) == null) ||
 					(!orderManager.LobbyInfo.GlobalSettings.EnableSingleplayer && orderManager.LobbyInfo.IsSinglePlayer);
 
@@ -791,6 +792,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 						template = editableSpectatorTemplate.Clone();
 
 					LobbyUtils.SetupEditableNameWidget(template, null, c, orderManager);
+
+					if (client.IsAdmin)
+						LobbyUtils.SetupEditableReadyWidget(template, null, client, orderManager, Map, !Map.RulesLoaded || Map.InvalidCustomRules);
 				}
 				else
 				{
@@ -801,6 +805,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					LobbyUtils.SetupNameWidget(template, null, client);
 					LobbyUtils.SetupKickWidget(template, null, client, orderManager, lobby,
 						() => panel = PanelType.Kick, () => panel = PanelType.Players);
+
+					if (client.IsAdmin)
+						LobbyUtils.SetupReadyWidget(template, null, client);
 				}
 
 				LobbyUtils.SetupClientWidget(template, c, orderManager, true);

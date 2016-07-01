@@ -60,7 +60,7 @@ namespace OpenRA.Mods.Common.Server
 
 		static void CheckAutoStart(S server)
 		{
-			var playerClients = server.LobbyInfo.Clients.Where(c => c.Bot == null && c.Slot != null);
+			var playerClients = server.LobbyInfo.Clients.Where(c => (c.Bot == null && c.Slot != null) || c.IsAdmin);
 
 			// Are all players ready?
 			if (!playerClients.Any() || playerClients.Any(c => c.State != Session.ClientState.Ready))
