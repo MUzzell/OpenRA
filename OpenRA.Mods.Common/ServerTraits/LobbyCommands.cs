@@ -60,6 +60,7 @@ namespace OpenRA.Mods.Common.Server
 
 		static void CheckAutoStart(S server)
 		{
+			//A spectating admin is included for checking these rules
 			var playerClients = server.LobbyInfo.Clients.Where(c => (c.Bot == null && c.Slot != null) || c.IsAdmin);
 
 			// Are all players ready?
