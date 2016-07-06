@@ -745,7 +745,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					LobbyUtils.SetupEditableFactionWidget(template, slot, client, orderManager, factions);
 					LobbyUtils.SetupEditableTeamWidget(template, slot, client, orderManager, Map);
 					LobbyUtils.SetupEditableSpawnWidget(template, slot, client, orderManager, Map);
-					LobbyUtils.SetupEditableReadyWidget(template, slot, client, orderManager, Map, !Map.RulesLoaded || Map.InvalidCustomRules);
+					LobbyUtils.SetupEditableReadyWidget(template, slot, client, orderManager, Map);
 				}
 				else
 				{
@@ -793,7 +793,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					LobbyUtils.SetupEditableNameWidget(template, null, c, orderManager);
 
 					if (client.IsAdmin)
-						LobbyUtils.SetupEditableReadyWidget(template, null, client, orderManager, Map, !Map.RulesLoaded || Map.InvalidCustomRules);
+						LobbyUtils.SetupEditableReadyWidget(template, null, client, orderManager, Map);
 				}
 				else
 				{
